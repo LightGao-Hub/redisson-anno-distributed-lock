@@ -1,0 +1,6 @@
+server:
+  port: 9888
+spring:
+  application:
+    name: springboot-redisson
+
