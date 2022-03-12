@@ -2,6 +2,7 @@ package com.redis.lock.config;
 
 import java.io.IOException;
 
+import com.redis.lock.service.impl.RedisLockService;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -21,5 +22,10 @@ public class RedissonConfig {
     public RedissonClient redissonClient() throws IOException {
         Config config = Config.fromYAML(RedissonConfig.class.getClassLoader().getResource("redisson.yml"));
         return Redisson.create(config);
+    }
+
+    @Bean
+    public RedisLockService redisLockService(RedissonClient redissonClient) {
+        return new RedisLockService(redissonClient);
     }
 }

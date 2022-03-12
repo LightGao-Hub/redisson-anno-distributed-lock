@@ -7,4 +7,5 @@ package com.redis.lock.service;
 public interface RedissonService {
     void processFirst();
     void processSecond();
+    void processThird();
 }

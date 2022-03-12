@@ -26,4 +26,10 @@ public class TestController {
     public void processSencond() {
         redissonService.processSecond();
     }
+
+    // 验证函数加锁
+    @GetMapping("/third")
+    public void processThird() {
+        redissonService.processThird();
+    }
 }
