@@ -8,7 +8,7 @@ import com.redis.lock.annotation.RedisLock;
 import com.redis.lock.service.RedissonService;
 
 @RestController
-public class TestController {
+public class LockController {
 
     @Autowired
     private RedissonService redissonService;

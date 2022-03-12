@@ -50,3 +50,21 @@
     
     优点：通过注解 & AOP 实现了只需在需要使用分布式的函数上加上注解即可实现, 开发者只需要关注业务即可, 使用优雅；
          另外通过AOP扫描的方式, 无需开发者自己实现扫描程序, 十分巧妙。
+         
+    3、lambda表达式加锁：
+            由于aop方式只能对spring代理对象起作用，对于普通函数程序员自身调用则会失效，
+            针对这一问题，需要我们自己实现加锁业务逻辑，故这里使用Lambda表达式方式实现，提供入参和返回值;
+        
+    public <T, R> Optional<R> lock(RedisLockOo redisLock, Optional<T> t, Function<Optional<T>, Optional<R>> func) {
+        ......
+    }
+    
+    使用：
+    redisLockService.lock(lockOo, Optional.of(1000 * 10), (p) -> {
+        try {
+            Thread.sleep(p.orElse(1000 * 10));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    });

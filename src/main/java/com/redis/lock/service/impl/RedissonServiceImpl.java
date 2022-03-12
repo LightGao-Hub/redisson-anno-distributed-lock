@@ -25,11 +25,11 @@ public class RedissonServiceImpl implements RedissonService {
     private RedisLockService redisLockService; // 非注解方式加锁
 
     @Override
-    @RedisLock(key = "org:redisson:test:lock:first") // 验证可重入锁
+    @RedisLock(key = "org:redisson:test:lock:first") // 再次加锁, 验证可重入锁
     public void processFirst() {
         log.info("RedissonServiceImpl:processFirst() process");
         try {
-            Thread.sleep(1000 * 70); // 默认续约为30分钟, 验证续约
+            Thread.sleep(1000 * 70); // 默认续约为30分钟, 验证锁续约
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
