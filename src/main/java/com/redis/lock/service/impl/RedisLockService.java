@@ -27,8 +27,9 @@ public final class RedisLockService {
                 if (isLock) {
                     log.info(" Lock successfully, execute the function ");
                     result = func.apply(t);
+                } else{
+                    log.info(" Failed to lock. Try to lock");
                 }
-                log.info(" Failed to lock. Try to lock");
             }
         } catch (Throwable throwable) {
             log.error(" Throwable locking ", throwable);
