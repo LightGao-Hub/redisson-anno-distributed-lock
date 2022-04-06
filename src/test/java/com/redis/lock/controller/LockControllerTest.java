@@ -26,7 +26,6 @@ public class LockControllerTest {
     public void processFirst() throws Exception {
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .get("/lock/first")
-                .header("Authorization", "Bearer ********-****-****-****-************")
         );
         resultActions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         resultActions.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
@@ -36,7 +35,6 @@ public class LockControllerTest {
     public void processSencond() throws Exception {
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .get("/lock/second")
-                .header("Authorization", "Bearer ********-****-****-****-************")
         );
         resultActions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         resultActions.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
@@ -46,7 +44,6 @@ public class LockControllerTest {
     public void processThird() throws Exception {
         ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
                 .get("/lock/third")
-                .header("Authorization", "Bearer ********-****-****-****-************")
         );
         resultActions.andReturn().getResponse().setCharacterEncoding("UTF-8");
         resultActions.andExpect(MockMvcResultMatchers.status().isOk()).andDo(print());
