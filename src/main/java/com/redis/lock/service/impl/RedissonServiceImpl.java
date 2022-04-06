@@ -1,16 +1,15 @@
 package com.redis.lock.service.impl;
 
-import com.redis.lock.model.oo.RedisLockOo;
+import java.util.Optional;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.redis.lock.annotation.RedisLock;
+import com.redis.lock.model.oo.RedisLockOo;
 import com.redis.lock.service.RedissonService;
-
-import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * Author: GL
@@ -29,7 +28,7 @@ public class RedissonServiceImpl implements RedissonService {
     public void processFirst() {
         log.info("RedissonServiceImpl:processFirst() process");
         try {
-            Thread.sleep(1000 * 70); // 默认续约为30分钟, 验证锁续约
+            Thread.sleep(1000 * 70); // 默认续约为30s, 验证锁续约
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -54,9 +53,9 @@ public class RedissonServiceImpl implements RedissonService {
                 .key("org:redisson:test:lock:first")
                 .build();
 
-        redisLockService.lock(lockOo, Optional.of(1000 * 10), (p) -> {
+        redisLockService.lock(lockOo, Optional.of(1000 * 20), (p) -> {
             try {
-                Thread.sleep(p.orElse(1000 * 10));
+                Thread.sleep(p.get());
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

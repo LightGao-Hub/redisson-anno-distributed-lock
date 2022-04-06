@@ -42,8 +42,9 @@ public class LockMethodAspect {
                 if (isLock) {
                     log.info(" Lock successfully, execute the function ");
                     result = joinPoint.proceed();
+                } else {
+                    log.info(" Failed to lock. Try to lock");
                 }
-                log.info(" Failed to lock. Try to lock");
             }
         } catch (Throwable throwable) {
             log.error(" Throwable locking ", throwable);

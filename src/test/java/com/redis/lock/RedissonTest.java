@@ -1,5 +1,7 @@
 package com.redis.lock;
 
+import org.junit.Test;
+
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
@@ -8,9 +10,9 @@ import org.redisson.config.Config;
 import java.util.concurrent.TimeUnit;
 
 
-public class RedissonUtils {
+public class RedissonTest {
 
-    private static void trylock() {
+    private void trylock() {
         // 1. 配置文件
         Config config = new Config();
         config.useSingleServer()
@@ -38,32 +40,10 @@ public class RedissonUtils {
         }
     }
 
-    public static void main(String[] args) {
+    @Test
+    public void lock() {
         trylock();
         System.exit(0);
     }
 
-    public static void lock() {
-        // 1. 配置文件
-        Config config = new Config();
-        config.useSingleServer()
-                .setAddress("redis://127.0.0.1:6379")
-                .setPassword("123456")
-                .setDatabase(0);
-        //2. 构造RedissonClient
-        RedissonClient redissonClient = Redisson.create(config);
-
-        //3. 设置锁定资源名称
-        RLock lock = redissonClient.getLock("redlock");
-        lock.lock();
-        try {
-            System.out.println("获取锁成功，实现业务逻辑");
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlock();
-        }
-
-    }
 }
